@@ -1,0 +1,27 @@
+<h2 class="headertekst">Work Order Management</h2>    
+  <h3 class="loc">Overview</h3> 
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<table>
+  <tr>
+    <th>Employee Name</th>
+    <th>Project Number</th>
+    <th>Email id</th>
+    <th>Date From</th>
+    <th>Date Till</th>
+    <th>No of Working Days</th>
+  </tr>
+  <tr *ngFor="let arr of tabValue">
+    <td *ngFor="let val of arr">{{val}}</td>
+
+  </tr> 
+</table>
+
+</body>
+</html>
+
