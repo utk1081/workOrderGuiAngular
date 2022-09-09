@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, NgModule, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from '../app.component';
+import { Component, OnInit } from '@angular/core';
+import { WorkOrder } from '../model/work-order';
+import { WorkOrderService } from '../services/work-order.service';
  /** code for two way binding Start**/
 
 /** code for two way binding End**/
@@ -22,8 +20,11 @@ export class OverviewComponent implements OnInit {
   onSave($event){ 
     console.log("save button is clicked. ",$event);
   }
+
+  workOrders: WorkOrder[] = [];
+
  /** constructor() {this.getData(); }*/ 
-  constructor(private http:HttpClient) {}
+  constructor(private workOrderService: WorkOrderService) {}
 array:any=[{Name:"Utkarsh", ProjectId:"1234",Email:"utkarsh@gloresoft.com" , ToDate:"01-09-2021" ,TillDate:"10-08-2022",billingDays:"200"},
 {Name:"Moulik", ProjectId:"1234",Email:"moulik@gloresoft.com" , ToDate:"01-09-2021" ,TillDate:"10-08-2022",billingDays:"200"},
 {Name:"Gajanan", ProjectId:"1234",Email:"gajanan@gloresoft.com" , ToDate:"01-09-2021" ,TillDate:"10-08-2022",billingDays:"200"}];
@@ -38,13 +39,20 @@ this.array.forEach((element:any) => {
 console.log(this.tabValue);
 }
 
- /** ngOnInit(): void {
-  } */ 
   ngOnInit() {
-   let resp= this.http.get("http://localhost:8080/overview");
-resp.subscribe((data)=>console.log(data));
+    this.workOrderService.getAll().subscribe({
+      next: (response) => this.handleSuccessfulResponse(response),
+      error: (e) => this.handleErrorResponse(e),
+      complete: () => console.info('complete')
+    })
+  }
+  handleErrorResponse(e: any): void {
+    console.log('Some error while retrieving work orders.')
+  }
 
-
+  handleSuccessfulResponse(response: WorkOrder[]): void {
+    this.workOrders = response;
+    console.log('finished successful response');
   }
 
 }
