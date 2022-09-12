@@ -16,9 +16,13 @@
     <th>Date Till</th>
     <th>No of Working Days</th>
   </tr>
-  <tr *ngFor="let arr of tabValue">
-    <td *ngFor="let val of arr">{{val}}</td>
-
+  <tr *ngFor="let workOrder of workOrders">
+    <td>{{workOrder.employeeName}}</td>
+    <td>{{workOrder.projectNumber}}</td>
+    <td>{{workOrder.emailId}}</td>
+    <td>{{workOrder.dateFrom}}</td>
+    <td>{{workOrder.dateTo}}</td>
+    <td>{{workOrder.workingDays}}</td>
   </tr> 
 </table>
 <!-- 
