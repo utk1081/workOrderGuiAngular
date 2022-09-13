@@ -4,16 +4,17 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-  }
-  
-  td, th {
+}
+td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-  }
-  .headertekst {
-    text-align: center;
- }
- .loc {
+}
+.loc {
     padding-left: 10px;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
 }

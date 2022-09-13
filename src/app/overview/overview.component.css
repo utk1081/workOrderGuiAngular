@@ -1,0 +1,9 @@
+button.addTimesheet {
+    margin-top: 10px;
+    background-color: beige;
+    padding: 5px;
+}
+
+table tr.overviewTableRow {
+    background-color: #b690d385;
+}

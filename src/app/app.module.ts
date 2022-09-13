@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { OverviewComponent } from './overview/overview.component';
 import {HttpClientModule} from '@angular/common/http';
 import { enableProdMode } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OverviewComponent
+    OverviewComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
