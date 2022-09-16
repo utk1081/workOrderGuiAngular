@@ -7,6 +7,8 @@ import { OverviewComponent } from './overview/overview.component';
 import {HttpClientModule} from '@angular/common/http';
 import { enableProdMode } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,11 @@ import { HeaderComponent } from './header/header.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,FormsModule,HttpClientModule
-
+    AppRoutingModule, 
+    FormsModule, 
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
