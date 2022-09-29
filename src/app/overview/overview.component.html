@@ -1,31 +1,44 @@
-<h3 class="loc">Overview</h3> 
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+	<div fxLayoutAlign="center">
+		<div style="margin-top: 12px">
+			<p style="font-size: large">Overview Table</p>
+		</div>
+	</div>
+	<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+		fxLayoutAlign="center">
 
-<table>
-<tr class="overviewTableRow">
-    <th>Employee Name</th>
-    <th>Project Number</th>
-    <th>Email id</th>
-    <th>Date From</th>
-    <th>Date Till</th>
-    <th>No of Working Days</th>
-  </tr>
-  <tr *ngFor="let workOrder of workOrders">
-    <td>{{workOrder.employeeName}}</td>
-    <td>{{workOrder.projectNumber}}</td>
-    <td>{{workOrder.emailId}}</td>
-    <td>{{workOrder.dateFrom}}</td>
-    <td>{{workOrder.dateTo}}</td>
-    <td>{{workOrder.workingDays}}</td>
-  </tr> 
-</table>
+		<div fxFlex="80%" fxFlex.sm="100%">
+			<table>
+				<tr class="overviewTableRow">
+					<th>Employee Name</th>
+					<th>Project Number</th>
+					<th>Email id</th>
+					<th>Date From</th>
+					<th>Date Till</th>
+					<th>No of Working Days</th>
+				</tr>
+				<tr *ngFor="let workOrder of workOrders">
+					<td>{{workOrder.employeeName}}</td>
+					<td>{{workOrder.projectNumber}}</td>
+					<td>{{workOrder.emailId}}</td>
+					<td>{{workOrder.dateFrom}}</td>
+					<td>{{workOrder.dateTo}}</td>
+					<td>{{workOrder.workingDays}}</td>
+				</tr>
+			</table>
+		</div>
 
- <!-- <button class="addTimesheet" (click)="toggleAddTimesheet()">Add Timesheet</button>
+	</div>
+</div>
+
+
+<!-- <button class="addTimesheet" (click)="toggleAddTimesheet()">Add Timesheet</button>
 
 <h2>Two-way Binding Example</h2>    
    <input [(ngModel)]="fullName" /> <br/><br/>    
 <p> {{fullName}} </p>  
-<br/> -->    
-<!--  <h2>{{ title }}</h2> String Interpolation -->    
-<!--  <img [src]="imgUrl" /> Property Binding -->   
- <!--  <h2>Event binding example..</h2>
-<button (click) ="onSave($event)">Save</button>  -->    
+<br/> -->
+<!--  <h2>{{ title }}</h2> String Interpolation -->
+<!--  <img [src]="imgUrl" /> Property Binding -->
+<!--  <h2>Event binding example..</h2>
+<button (click) ="onSave($event)">Save</button>  -->
