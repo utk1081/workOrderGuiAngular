@@ -1,3 +1,20 @@
 <app-header></app-header>
-<app-overview></app-overview>
+
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="80%" fxFlex.sm="100%">
+        <app-overview></app-overview>
+    </div>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+		fxLayoutAlign="center">
+        <div fxFlex="80%" fxFlex.sm="100%">
+            <button mat-stroked-button color="primary" (click)="toggleTimesheet()">Add Timesheet</button>
+        </div>
+    </div>
+    
+    <div fxFlex="80%" fxFlex.sm="100%">
+        <app-timesheet *ngIf="showTimesheet"></app-timesheet>
+    </div>
+    
+</div>
+
 

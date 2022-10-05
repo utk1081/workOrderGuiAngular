@@ -3,7 +3,3 @@ button.addTimesheet {
     background-color: beige;
     padding: 5px;
 }
-
-table tr.overviewTableRow {
-    background-color: #b690d385;
-}
