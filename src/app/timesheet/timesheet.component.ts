@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkOrder } from '../model/work-order';
 import { WorkOrderService } from '../services/work-order.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-timesheet',
@@ -9,18 +10,23 @@ import { WorkOrderService } from '../services/work-order.service';
 })
 export class TimesheetComponent implements OnInit {
 
-    constructor(private workOrderService: WorkOrderService) { }
+    constructor(
+        private workOrderService: WorkOrderService,
+        private router: Router) { }
 
     names: string[] = [];
     response: WorkOrder[] = [];
     selectedName = '';
+    workOrder: WorkOrder = new WorkOrder();
+
     projectIdOptions: string[] = [];
 
     ngOnInit(): void {
         this.workOrderService.getAll().subscribe({
             next: (response) => this.handleSuccessfulResponse(response),
             error: (e) => this.handleErrorResponse(e),
-            complete: () => console.info('complete')
+            complete: () => console.info('complete'),
+            
         })
     }
 
@@ -41,8 +47,15 @@ export class TimesheetComponent implements OnInit {
     }
 
     submitTimesheet() {
-        console.log('Submitting now');
-    }
-
-
+        console.log('0 submitTimesheet called ');
+        this.workOrderService.updateWorkOrder(this.workOrder).subscribe( data =>{
+            this.goToEmployeeList();
+          }
+          , error => console.log(error));
+        }
+        goToEmployeeList(){
+            console.log('2 before call ');
+            this.router.navigate(['/employees']);
+            console.log('3 after call ');
+          }
 }
