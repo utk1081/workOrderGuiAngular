@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WorkOrder } from '../model/work-order';
 import { WorkOrderService } from '../services/work-order.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-timesheet',
@@ -9,12 +10,27 @@ import { WorkOrderService } from '../services/work-order.service';
 })
 export class TimesheetComponent implements OnInit {
 
-    constructor(private workOrderService: WorkOrderService) { }
+    constructor(private workOrderService: WorkOrderService) {
+        this.submitCounter = 0;
+    }
 
     names: string[] = [];
     response: WorkOrder[] = [];
     selectedName = '';
     projectIdOptions: string[] = [];
+    @Input()
+    submitCounter: number;
+
+    @Output()
+    timesheetSubmitted = new EventEmitter<number>();
+
+    timesheetForm = new FormGroup({
+        name: new FormControl(''),
+        projectId: new FormControl(''),
+        dateTo: new FormControl(),
+        dateFrom: new FormControl(),
+        workingDays: new FormControl()
+    });
 
     ngOnInit(): void {
         this.workOrderService.getAll().subscribe({
@@ -30,7 +46,8 @@ export class TimesheetComponent implements OnInit {
 
     handleSuccessfulResponse(response: WorkOrder[]): void {
         this.response = response;
-        this.names = response.map(w => w.employeeName);
+        //response.map(w => w.employeeName).map(m => this.names.push(m));
+        this.names = [...new Map(response.map((m) => [m.employeeName, m])).values()].map(m => m.employeeName);
         console.log('finished successful response');
     }
 
@@ -41,7 +58,28 @@ export class TimesheetComponent implements OnInit {
     }
 
     submitTimesheet() {
-        console.log('Submitting now');
+        const workOrderList = this.response.filter(wo => wo.employeeName === this.timesheetForm.value.name && wo.projectNumber === this.timesheetForm.value.projectId);
+        if(workOrderList.length > 0) {
+            const workOrder = workOrderList[0];
+            if(workOrder.remainingDays > this.timesheetForm.value.workingDays) {
+                workOrder.remainingDays = workOrder.remainingDays - this.timesheetForm.value.workingDays;
+                this.workOrderService.update(workOrder).subscribe({
+                    next: response => this.timesheetUpdated(response),
+                    error: e => console.error('Error while updating:' + e),
+                });
+            } else {
+                console.error('Not enough balance in the work order.');
+            }
+            console.log(workOrder);
+        } else {
+            console.error('No project for the selected work order found');
+        }
+        
+    }
+
+    timesheetUpdated(response: WorkOrder) {
+        this.timesheetSubmitted.emit();
+        console.log('Timesheet updated');
     }
 
 

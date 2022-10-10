@@ -16,4 +16,8 @@ export class WorkOrderService {
   public getAll(): Observable<WorkOrder[]> {
     return this.http.get<WorkOrder[]>(this.workOrderApiUrl);
   }
+
+  public update(workOrder: WorkOrder): Observable<WorkOrder> {
+    return this.http.put<WorkOrder>(this.workOrderApiUrl + '/' + workOrder.id, workOrder);
+  }
 }

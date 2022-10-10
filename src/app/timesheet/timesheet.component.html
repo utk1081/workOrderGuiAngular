@@ -1,6 +1,6 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
     <div fxFlex="80%" fxFlex.sm="100%">
-        <form>
+        <form [formGroup]="timesheetForm" (ngSubmit)="submitTimesheet()">
             <table>
                 <tr class="headerRow">
                     <th>Name</th>
@@ -13,7 +13,7 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Select</mat-label>
-                            <mat-select (selectionChange)="nameChanged()" [(value)]="selectedName">
+                            <mat-select (selectionChange)="nameChanged()" [(value)]="selectedName" formControlName="name">
                                 <mat-option *ngFor="let name of names" [value]="name">
                                     {{name}}
                                 </mat-option>
@@ -23,7 +23,7 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Select</mat-label>
-                            <mat-select>
+                            <mat-select formControlName="projectId">
                                 <mat-option *ngFor="let projectId of projectIdOptions" [value]="projectId">{{projectId}}
                                 </mat-option>
                             </mat-select>
@@ -32,7 +32,7 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker">
+                            <input matInput [matDatepicker]="picker" formControlName="dateFrom">
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -41,7 +41,7 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker2">
+                            <input matInput [matDatepicker]="picker2" formControlName="dateTo">
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
@@ -50,13 +50,13 @@
                     <td>
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Enter days</mat-label>
-                            <input matInput placeholder="Ex. 28" value="30" type="number">
+                            <input matInput placeholder="Ex. 28" value="30" type="number" formControlName="workingDays">
                         </mat-form-field>
                     </td>
                 </tr>
             </table>
             <div class="submitButton">
-                <button mat-stroked-button color="primary" (click)="submitTimesheet()" type="submit">Submit
+                <button mat-stroked-button color="primary" [disabled]="!timesheetForm.valid" type="submit">Submit
                     Timesheet</button>
             </div>
         </form>

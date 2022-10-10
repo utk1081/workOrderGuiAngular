@@ -49,5 +49,12 @@ export class WorkOrder {
     public set workingDays(value: number) {
         this._workingDays = value;
     }
+    private _remainingDays!: number;
+    public get remainingDays(): number {
+        return this._remainingDays;
+    }
+    public set remainingDays(value: number) {
+        this._remainingDays = value;
+    }
 
 }
