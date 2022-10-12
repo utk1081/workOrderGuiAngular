@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WorkOrder } from '../model/work-order';
 import { WorkOrderService } from '../services/work-order.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-timesheet',
@@ -10,9 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TimesheetComponent implements OnInit {
 
-    constructor(
-        private workOrderService: WorkOrderService,
-        private router: Router) { }
+    constructor(private workOrderService: WorkOrderService) {
+        this.submitCounter = 0;
+    }
 
     names: string[] = [];
     response: WorkOrder[] = [];
@@ -20,6 +20,19 @@ export class TimesheetComponent implements OnInit {
     workOrder: WorkOrder = new WorkOrder();
 
     projectIdOptions: string[] = [];
+    @Input()
+    submitCounter: number;
+
+    @Output()
+    timesheetSubmitted = new EventEmitter<number>();
+
+    timesheetForm = new FormGroup({
+        name: new FormControl(''),
+        projectId: new FormControl(''),
+        dateTo: new FormControl(),
+        dateFrom: new FormControl(),
+        workingDays: new FormControl()
+    });
 
     ngOnInit(): void {
         this.workOrderService.getAll().subscribe({
@@ -36,7 +49,8 @@ export class TimesheetComponent implements OnInit {
 
     handleSuccessfulResponse(response: WorkOrder[]): void {
         this.response = response;
-        this.names = response.map(w => w.employeeName);
+        //response.map(w => w.employeeName).map(m => this.names.push(m));
+        this.names = [...new Map(response.map((m) => [m.employeeName, m])).values()].map(m => m.employeeName);
         console.log('finished successful response');
     }
 
@@ -47,15 +61,29 @@ export class TimesheetComponent implements OnInit {
     }
 
     submitTimesheet() {
-        console.log('0 submitTimesheet called ');
-        this.workOrderService.updateWorkOrder(this.workOrder).subscribe( data =>{
-            this.goToEmployeeList();
-          }
-          , error => console.log(error));
+        const workOrderList = this.response.filter(wo => wo.employeeName === this.timesheetForm.value.name && wo.projectNumber === this.timesheetForm.value.projectId);
+        if(workOrderList.length > 0) {
+            const workOrder = workOrderList[0];
+            if(workOrder.remainingDays > this.timesheetForm.value.workingDays) {
+                workOrder.remainingDays = workOrder.remainingDays - this.timesheetForm.value.workingDays;
+                this.workOrderService.update(workOrder).subscribe({
+                    next: response => this.timesheetUpdated(response),
+                    error: e => console.error('Error while updating:' + e),
+                });
+            } else {
+                console.error('Not enough balance in the work order.');
+            }
+            console.log(workOrder);
+        } else {
+            console.error('No project for the selected work order found');
         }
-        goToEmployeeList(){
-            console.log('2 before call ');
-            this.router.navigate(['/employees']);
-            console.log('3 after call ');
-          }
+        
+    }
+
+    timesheetUpdated(response: WorkOrder) {
+        this.timesheetSubmitted.emit();
+        console.log('Timesheet updated');
+    }
+
+
 }

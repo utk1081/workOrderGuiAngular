@@ -18,9 +18,7 @@ export class WorkOrderService {
     return this.http.get<WorkOrder[]>(this.workOrderApiUrl);
   }
 
-  updateWorkOrder(employee: WorkOrder): Observable<Object>{
-    console.log('1 5555 called update service');
-    console.log('id '+employee.id);
-    return this.http.put( '${this.workOrderApiUrl}/${ employee.id}' ,employee);
+  public update(workOrder: WorkOrder): Observable<WorkOrder> {
+    return this.http.put<WorkOrder>(this.workOrderApiUrl + '/' + workOrder.id, workOrder);
   }
 }

@@ -2,7 +2,7 @@
 
 <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
     <div fxFlex="80%" fxFlex.sm="100%">
-        <app-overview></app-overview>
+        <app-overview [updateOverview]="updateOverview"></app-overview>
     </div>
     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
 		fxLayoutAlign="center">
@@ -12,7 +12,7 @@
     </div>
     
     <div fxFlex="80%" fxFlex.sm="100%">
-        <app-timesheet *ngIf="showTimesheet"></app-timesheet>
+        <app-timesheet *ngIf="showTimesheet" [submitCounter]="submitCounter" (timesheetSubmitted)="refreshOverviewTable()"></app-timesheet>
     </div>
     
 </div>

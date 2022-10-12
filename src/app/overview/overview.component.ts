@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { WorkOrder } from '../model/work-order';
 import { WorkOrderService } from '../services/work-order.service';
  /** code for two way binding Start**/
@@ -9,7 +9,7 @@ import { WorkOrderService } from '../services/work-order.service';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnChanges {
   /** String interpolation example */
    /**fullName: string = "Hello Two way binding";     */
 /** property binding example */
@@ -21,6 +21,8 @@ export class OverviewComponent implements OnInit {
     console.log("save button is clicked. ",$event);
   }
 
+  @Input()
+  updateOverview: number = 0;
   workOrders: WorkOrder[] = [];
 
  /** constructor() {this.getData(); }*/ 
@@ -53,6 +55,16 @@ console.log(this.tabValue);
   handleSuccessfulResponse(response: WorkOrder[]): void {
     this.workOrders = response;
     console.log('finished successful response');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    
+    for(const change in changes) {
+        console.log('change:', change);
+        if(change)
+        this.ngOnInit();
+    }
+    console.log('updateOverview:', this.updateOverview);
   }
 
 }
