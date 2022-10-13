@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WorkOrder } from '../model/work-order';
 import { WorkOrderService } from '../services/work-order.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl,FormControlName,Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-timesheet',
@@ -17,6 +17,7 @@ export class TimesheetComponent implements OnInit {
     names: string[] = [];
     response: WorkOrder[] = [];
     selectedName = '';
+    popupmessage='';
     workOrder: WorkOrder = new WorkOrder();
 
     projectIdOptions: string[] = [];
@@ -26,11 +27,14 @@ export class TimesheetComponent implements OnInit {
     @Output()
     timesheetSubmitted = new EventEmitter<number>();
 
+  
+
+
     timesheetForm = new FormGroup({
-        name: new FormControl(''),
-        projectId: new FormControl(''),
-        dateTo: new FormControl(),
-        dateFrom: new FormControl(),
+        name: new FormControl('',Validators.required),
+        projectId: new FormControl('',Validators.required),
+        dateTo: new FormControl(Validators.required),
+        dateFrom: new FormControl(Validators.required),
         workingDays: new FormControl()
     });
 
@@ -72,6 +76,7 @@ export class TimesheetComponent implements OnInit {
                 });
             } else {
                 console.error('Not enough balance in the work order.');
+                this.popupmessage='insufficient work order balance!';
             }
             console.log(workOrder);
         } else {
@@ -86,4 +91,26 @@ export class TimesheetComponent implements OnInit {
     }
 
 
+  // Angular Reactive form starts 
+  title2 = 'angular8 Reactive form';
+  
+  loginUser(){
+    console.warn(this.timesheetForm.value);
+    
+  }
+  get name(){
+    return this.timesheetForm.get('name');
+  }
+  get projectId(){
+    return this.timesheetForm.get('projectId');
+  }
+  get dateFrom(){
+    return this.timesheetForm.get('dateFrom');
+  }
+  get dateTo(){
+    return this.timesheetForm.get('dateTo');
+  }
+  get workingDays(){
+    return this.timesheetForm.get('workingDays');
+  }
 }

@@ -19,6 +19,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="name && name.invalid && name.touched">Please select employee name</div>
+
                     </td>
                     <td>
                         <mat-form-field appearance="fill">
@@ -28,6 +30,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="projectId && projectId.invalid && projectId.touched">Please select Project No</div>
+
                     </td>
                     <td>
                         <mat-form-field appearance="fill">
@@ -37,6 +41,8 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="dateFrom && dateFrom.invalid && dateFrom.touched">Please select start date</div>
+
                     </td>
                     <td>
                         <mat-form-field appearance="fill">
@@ -46,12 +52,18 @@
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="dateTo && dateTo.invalid && dateTo.touched">Please select end date</div>
+
                     </td>
                     <td>
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Enter days</mat-label>
-                            <input matInput placeholder="Ex. 28" value="30" type="number" formControlName="workingDays">
+                            <input matInput placeholder="Ex. 28" value="30" type="number" formControlName="workingDays" min="0">
                         </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="workingDays && workingDays.invalid && workingDays.touched">Please enter billing days</div>
+                        <div style="color:red">
+                            {{popupmessage}}
+                         </div>
                     </td>
                 </tr>
             </table>
@@ -59,6 +71,7 @@
                 <button mat-stroked-button color="primary" [disabled]="!timesheetForm.valid" type="submit">Submit
                     Timesheet</button>
             </div>
+            
         </form>
     </div>
 </div>
