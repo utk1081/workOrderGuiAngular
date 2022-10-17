@@ -18,6 +18,7 @@ export class TimesheetComponent implements OnInit {
     response: WorkOrder[] = [];
     selectedName = '';
     popupmessage='';
+    popupmessageSuccess='';
     workOrder: WorkOrder = new WorkOrder();
 
     projectIdOptions: string[] = [];
@@ -74,8 +75,8 @@ export class TimesheetComponent implements OnInit {
                     next: response => this.timesheetUpdated(response),
                     error: e => console.error('Error while updating:' + e),
                 });
+                this.popupmessageSuccess='Records Updated succesfully.';
             } else {
-                console.error('Not enough balance in the work order.');
                 this.popupmessage='insufficient work order balance!';
             }
             console.log(workOrder);

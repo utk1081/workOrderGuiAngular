@@ -10,7 +10,6 @@ export class WorkOrderService {
 
   private workOrderApiUrl: string;
   constructor(private http: HttpClient) {
-    console.log('5555');
     this.workOrderApiUrl = 'http://localhost:8080/workOrders';
   }
 
