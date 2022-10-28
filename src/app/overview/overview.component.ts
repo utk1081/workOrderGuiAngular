@@ -6,11 +6,14 @@ import { WorkOrderService } from '../services/work-order.service';
 /** code for two way binding End**/
 @Component({
   selector: 'app-overview',
+  //selector: 'app-root',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit, OnChanges {
-  
+  public nameTest="Utkarsh";
+  public message='';
+
   onSave($event){ 
     console.log("save button is clicked. ",$event);
   }

@@ -9,7 +9,15 @@ import { FormGroup, FormControl,FormControlName,Validators} from '@angular/forms
     styleUrls: ['./timesheet.component.css']
 })
 export class TimesheetComponent implements OnInit {
-
+@Input('parentData1') public  aliasName;
+@Output () public childEvent=new EventEmitter();
+@Output () public childEventSuccess=new EventEmitter();
+fireEvent(){
+    this.childEvent.emit('reverse event test.');
+}
+fireEventSuccess(){
+    this.childEventSuccess.emit('Result: Data Updated Sussesfully.');
+}
     constructor(private workOrderService: WorkOrderService) {
         this.submitCounter = 0;
     }
@@ -71,6 +79,7 @@ export class TimesheetComponent implements OnInit {
             const workOrder = workOrderList[0];
             if(workOrder.remainingDays > this.timesheetForm.value.workingDays) {
                 workOrder.remainingDays = workOrder.remainingDays - this.timesheetForm.value.workingDays;
+                workOrder.billingDays=this.timesheetForm.value.workingDays;
                 this.workOrderService.update(workOrder).subscribe({
                     next: response => this.timesheetUpdated(response),
                     error: e => console.error('Error while updating:' + e),

@@ -4,16 +4,38 @@
     <div fxFlex="80%" fxFlex.sm="100%">
         <app-overview [updateOverview]="updateOverview"></app-overview>
     </div>
+<div fxLayoutAlign="center">
+    <div style="margin-top: 12px">
+        <p style="font-size: large" style="color:#50D050">{{messageSuccess}}</p>
+    </div>
+</div>
+<!-- add new work order screen start-->
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+		fxLayoutAlign="center">
+        <div fxFlex="80%" fxFlex.sm="100%">
+            <button mat-stroked-button color="primary" (click)="toggleAddWorkOrder()">Add work order</button>
+        </div>
+    </div>
+<app-add-work-order *ngIf="showAddWorkOrder" [submitCounter]="submitCounter" (timesheetSubmitted)="refreshOverviewTable()"></app-add-work-order>
+
+<!-- add new work order screen end-->
+<br><br>
     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
 		fxLayoutAlign="center">
         <div fxFlex="80%" fxFlex.sm="100%">
-            <button mat-stroked-button color="primary" (click)="toggleTimesheet()">Add Timesheet</button>
+            <button mat-stroked-button color="primary" (click)="toggleTimesheet()">Update Timesheet</button>
         </div>
     </div>
+    <app-timesheet *ngIf="showTimesheet" [submitCounter]="submitCounter" (timesheetSubmitted)="refreshOverviewTable()"></app-timesheet>
     
+    <div fxLayoutAlign="center"></div>
+    <!-- History screen -->
     <div fxFlex="80%" fxFlex.sm="100%">
-        <app-timesheet *ngIf="showTimesheet" [submitCounter]="submitCounter" (timesheetSubmitted)="refreshOverviewTable()"></app-timesheet>
-    </div>
+        <app-history  [updateHistory]="updateHistory"></app-history> 
+        <!-- <app-overview [updateOverview]="updateOverview"></app-overview> -->
+
+   
+</div>
     
 </div>
 

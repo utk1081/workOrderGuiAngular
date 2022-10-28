@@ -1,0 +1,55 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="80%" fxFlex.sm="100%">
+        <form [formGroup]="newWorkorderForm" (ngSubmit)="submit()">
+            <table>
+                <tr class="headerRow">
+                    <th>Name</th>
+                    <th>Work Order No</th>
+                    <th>Number of Days</th>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select</mat-label>
+                            <mat-select (selectionChange)="nameChanged()" [(value)]="selectedName" formControlName="name">
+                                <mat-option *ngFor="let name of names" [value]="name">
+                                    {{name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="name && name.invalid && name.touched">Please select employee name</div>
+
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>work order number</mat-label>
+                            <input matInput placeholder="Ex. 1234"   formControlName="projectId" >
+                        </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="projectId && projectId.invalid && projectId.touched">Please enter Work order No</div>
+                        <div style="color:red">
+                            {{popupmessage}}
+                         </div>
+                    </td>
+                   
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Enter billing days</mat-label>
+                            <input matInput placeholder="Ex. 150"  type="number" formControlName="workingDays" min="0">
+                        </mat-form-field>
+                        <div style="color:red" class="invalid-feedback" *ngIf="workingDays && workingDays.invalid && workingDays.touched">Please enter billing days</div>
+                        <div style="color:red">
+                            {{popupmessage}}
+                         </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="submitButton">
+                <button mat-stroked-button color="primary" [disabled]="!newWorkorderForm.valid" type="submit" (click)="fireEventSuccess()">Submit
+        </button>
+            </div>
+            
+        </form>
+       
+    </div>
+</div>
+<!-- <button (click)="fireEvent()"> click </button> -->
