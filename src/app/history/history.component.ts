@@ -8,7 +8,6 @@ import { WorkOrderService } from '../services/work-order.service';
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
-  //historys: History[] = [];
   response: History[] = [];
   constructor(private workOrderService: WorkOrderService) { }
   @Input()

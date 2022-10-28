@@ -17,10 +17,10 @@
 					<th>Action</th>			
 				</tr>
 				<tr *ngFor="let history of historys">
-					<td>{{history.user}}</td>
+					<td>{{history.userName}}</td>
 					<td>{{history.projectNumber}}</td>
 					<td>{{history.emailId}}</td>
-					<td> {{ history.timestamp | date :'short' }}
+					<td> {{history.timestamp | date :'short' }}
 					</td>
 					<td>{{history.action}}</td>
 				</tr>

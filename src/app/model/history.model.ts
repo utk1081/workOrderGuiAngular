@@ -7,12 +7,12 @@ export class History {
     public set id(value: number) {
         this._id = value;
     }
-    private _user!: string;
-    public get user(): string {
-        return this.user;
+    private _userName!: string;
+    public get userName(): string {
+        return this.userName;
     }
-    public set user(value: string) {
-        this.user = value;
+    public set userName(value: string) {
+        this.userName = value;
     }
     private _projectNumber!: string;
     public get projectNumber(): string {
