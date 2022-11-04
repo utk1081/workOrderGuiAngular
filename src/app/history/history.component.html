@@ -1,0 +1,32 @@
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+	<div fxLayoutAlign="center">
+		<div style="margin-top: 12px">
+			<p style="font-size: large">History Table</p>
+		</div>
+	</div>
+	<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+		fxLayoutAlign="center">
+
+		<div fxFlex="80%" fxFlex.sm="100%">
+			<table>
+				<tr class="headerRow">
+					<th>Employee Name</th>
+					<th>Work Order Number</th>
+					<th>Email id</th>
+					<th>Current Date</th>
+					<th>Action</th>			
+				</tr>
+				<tr *ngFor="let history of historys">
+					<td>{{history.userName}}</td>
+					<td>{{history.projectNumber}}</td>
+					<td>{{history.emailId}}</td>
+					<td> {{history.timestamp | date :'short' }}
+					</td>
+					<td>{{history.action}}</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</div>
+

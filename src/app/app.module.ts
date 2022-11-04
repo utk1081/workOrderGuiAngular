@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TimesheetComponent } from './timesheet/timesheet.component';
+import { HistoryComponent } from './history/history.component';
+import { AddWorkOrderComponent } from './add-work-order/add-work-order.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -20,6 +22,8 @@ import { LogoutComponent } from './logout/logout.component';
     OverviewComponent,
     HeaderComponent,
     TimesheetComponent,
+    HistoryComponent,
+    AddWorkOrderComponent,
     LoginComponent,
     LogoutComponent
   ],

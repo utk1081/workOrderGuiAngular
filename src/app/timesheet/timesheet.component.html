@@ -68,10 +68,12 @@
                 </tr>
             </table>
             <div class="submitButton">
-                <button mat-stroked-button color="primary" [disabled]="!timesheetForm.valid" type="submit">Submit
+                <button mat-stroked-button color="primary" [disabled]="!timesheetForm.valid" type="submit" (click)="fireEventSuccess()">Submit
                     Timesheet</button>
             </div>
             
         </form>
+       
     </div>
 </div>
+<!-- <button (click)="fireEvent()"> click </button> -->
