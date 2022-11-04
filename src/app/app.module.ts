@@ -11,13 +11,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TimesheetComponent } from './timesheet/timesheet.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OverviewComponent,
     HeaderComponent,
-    TimesheetComponent
+    TimesheetComponent,
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,10 @@
 <div class="container" fxLayout="row">
     <div fxFlex="100%" class="header">
         <h2>{{headerTitle | uppercase}}</h2>
+        <div class="float-end">
+            <a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login">Login</a>
+            <a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout">Logout</a>
+        </div>
     </div>
+    
 </div>
