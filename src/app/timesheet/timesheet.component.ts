@@ -27,6 +27,7 @@ fireEventSuccess(){
     selectedName = '';
     popupmessage='';
     popupmessageSuccess='';
+    buttonType : string='';
     workOrder: WorkOrder = new WorkOrder();
 
     projectIdOptions: string[] = [];
@@ -42,8 +43,10 @@ fireEventSuccess(){
     timesheetForm = new FormGroup({
         name: new FormControl('',Validators.required),
         projectId: new FormControl('',Validators.required),
-        dateTo: new FormControl(Validators.required),
-        dateFrom: new FormControl(Validators.required),
+        //dateTo: new FormControl(Validators.required),
+       // dateFrom: new FormControl(Validators.required),
+       dateTo: new FormControl(),
+        dateFrom: new FormControl(),
         workingDays: new FormControl()
     });
 
@@ -72,8 +75,13 @@ fireEventSuccess(){
             .map(workOrder => workOrder.projectNumber);
         //this.projectIdOptions.forEach(x => console.log('projectId', x));
     }
+   
+    submitTimesheet(buttonType) {
+      
+        if(buttonType==="submit") {
+            console.log(buttonType);
+        
 
-    submitTimesheet() {
         const workOrderList = this.response.filter(wo => wo.employeeName === this.timesheetForm.value.name && wo.projectNumber === this.timesheetForm.value.projectId);
         if(workOrderList.length > 0) {
             const workOrder = workOrderList[0];
@@ -92,7 +100,23 @@ fireEventSuccess(){
         } else {
             console.error('No project for the selected work order found');
         }
-        
+    }
+    if(buttonType==="edit") {
+        console.log(buttonType);
+        const workOrderList = this.response.filter(wo => wo.employeeName === this.timesheetForm.value.name && wo.projectNumber === this.timesheetForm.value.projectId);
+
+        if(workOrderList.length > 0) {
+            const workOrder = workOrderList[0];
+            workOrder.billingDays=this.timesheetForm.value.workingDays;
+            workOrder.workingDays=this.timesheetForm.value.workingDays;
+            workOrder.dateFrom=this.timesheetForm.value.dateFrom;
+            workOrder.dateTo=this.timesheetForm.value.dateTo;
+        this.workOrderService.update(workOrder).subscribe({
+            next: response => this.timesheetUpdated(response),
+            error: e => console.error('Error while updating:' + e),
+        });
+    }
+    }
     }
 
     timesheetUpdated(response: WorkOrder) {

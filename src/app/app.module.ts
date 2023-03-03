@@ -15,6 +15,7 @@ import { HistoryComponent } from './history/history.component';
 import { AddWorkOrderComponent } from './add-work-order/add-work-order.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { DeleteComponent } from './delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LogoutComponent } from './logout/logout.component';
     HistoryComponent,
     AddWorkOrderComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    DeleteComponent
   ],
   imports: [
     BrowserModule,

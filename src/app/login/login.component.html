@@ -1,7 +1,26 @@
 <app-header></app-header>
-
+<!-- 
 <div>
     Username: <input type="text" name="username" [(ngModel)]="username">
     Password: <input type="password" name="password" [(ngModel)]="password">
 </div>
-<button (click)="checkLogin()">Login</button>
+<button (click)="checkLogin()">Login</button> -->
+
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="80%" fxFlex.sm="100%">
+<form [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>user name</mat-label>
+        <input matInput placeholder="Ex. 1234"  type="number" formControlName="username" min="0">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Ex. xxxx"  type="number" formControlName="password" min="0">
+    </mat-form-field>
+    <button mat-stroked-button color="primary" [disabled]="!loginForm.valid" type="submit" (click)="checkLogin()">Login
+    </button>
+</form>
+
+</div>
+</div>
